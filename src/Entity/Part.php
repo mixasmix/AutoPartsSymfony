@@ -26,23 +26,17 @@ class Part
      * @var int
      */
     #[ORM\Column(type: 'integer')]
-    private int $quantity;
-
-    /**
-     * @var int
-     */
-    #[ORM\Column(type: 'integer')]
     private int $multiplicity;
 
     /**
      * @param string $partNumber
-     * @param int    $quantity
      * @param int    $multiplicity
      */
-    public function __construct(string $partNumber, int $quantity = 1, int $multiplicity = 1)
-    {
+    public function __construct(
+        string $partNumber,
+        int $multiplicity = 1
+    ) {
         $this->partNumber = $partNumber;
-        $this->quantity = $quantity;
         $this->multiplicity = $multiplicity;
     }
 
@@ -52,14 +46,6 @@ class Part
     public function getPartNumber(): string
     {
         return $this->partNumber;
-    }
-
-    /**
-     * @return int
-     */
-    public function getQuantity(): int
-    {
-        return $this->quantity;
     }
 
     /**
