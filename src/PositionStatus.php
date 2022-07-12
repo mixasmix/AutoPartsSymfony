@@ -50,6 +50,11 @@ enum PositionStatus: string
     case TRANSIT = 'transit';
 
     /**
+     * Новый
+     */
+    case NEW = 'new';
+
+    /**
      * @return array
      */
     protected function getValidValues(): array
@@ -64,13 +69,14 @@ enum PositionStatus: string
             PositionStatus::EXCEPTION,
             PositionStatus::PROCESSING,
             PositionStatus::TRANSIT,
+            PositionStatus::NEW,
         ];
     }
 
     /**
      * @return string
      */
-    public function returnTranslated(): string
+    public function translated(): string
     {
         return match ($this) {
             self::ADD_BASKET => 'Добавлен в корзину',
@@ -82,6 +88,7 @@ enum PositionStatus: string
             self::EXCEPTION => 'Исключительная ситуация',
             self::HANDED_COURIER => 'Передан курьеру',
             self::TRANSIT => 'Транзит',
+            self::NEW => 'Новый',
         };
     }
 }
