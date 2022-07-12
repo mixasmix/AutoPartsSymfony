@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 
@@ -37,15 +39,27 @@ class User
     private ?string $middleName;
 
     /**
+     * @var Collection<OrderPosition>
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: OrderPosition::class)]
+    private Collection $baskets;
+
+    /**
      * @param string        $firstName
      * @param string        $LastName
      * @param string | null $middleName
+     * @param array         $baskets
      */
-    public function __construct(string $firstName, string $LastName, ?string $middleName = null)
-    {
+    public function __construct(
+        string $firstName,
+        string $LastName,
+        ?string $middleName = null,
+        array $baskets = []
+    ) {
         $this->firstName = $firstName;
         $this->LastName = $LastName;
         $this->middleName = $middleName;
+        $this->baskets = new ArrayCollection(array_unique($baskets, SORT_REGULAR));
     }
 
     /**
@@ -78,5 +92,13 @@ class User
     public function getMiddleName(): ?string
     {
         return $this->middleName;
+    }
+
+    /**
+     * @return Collection<OrderPosition>
+     */
+    public function getBaskets(): Collection
+    {
+        return $this->baskets;
     }
 }
