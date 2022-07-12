@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 
@@ -17,49 +18,49 @@ class User
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
     /**
      * @var string
      */
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private string $firstName;
 
     /**
      * @var string
      */
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private string $LastName;
 
     /**
      * @var string | null
      */
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $middleName;
 
     /**
      * @var Collection<OrderPosition>
      */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: OrderPosition::class)]
-    private Collection $baskets;
+    private Collection $positions;
 
     /**
      * @param string        $firstName
      * @param string        $LastName
      * @param string | null $middleName
-     * @param array         $baskets
+     * @param array         $positions
      */
     public function __construct(
         string $firstName,
         string $LastName,
         ?string $middleName = null,
-        array $baskets = []
+        array $positions = []
     ) {
         $this->firstName = $firstName;
         $this->LastName = $LastName;
         $this->middleName = $middleName;
-        $this->baskets = new ArrayCollection(array_unique($baskets, SORT_REGULAR));
+        $this->positions = new ArrayCollection(array_unique($positions, SORT_REGULAR));
     }
 
     /**
@@ -97,8 +98,8 @@ class User
     /**
      * @return Collection<OrderPosition>
      */
-    public function getBaskets(): Collection
+    public function getPositions(): Collection
     {
-        return $this->baskets;
+        return $this->positions;
     }
 }

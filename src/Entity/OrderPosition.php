@@ -34,7 +34,7 @@ class OrderPosition
     /**
      * @var User
      */
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'baskets')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'positions')]
     private User $user;
 
     /**

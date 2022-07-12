@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
@@ -15,7 +16,7 @@ class Order
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
     /**
@@ -23,4 +24,6 @@ class Order
      */
     #[ORM\OneToMany(mappedBy: 'order', targetEntity: OrderPosition::class)]
     private Collection $orderPositions;
+
+
 }
