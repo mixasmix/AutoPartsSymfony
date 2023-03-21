@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Backet;
 
 use App\Entity\Basket;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

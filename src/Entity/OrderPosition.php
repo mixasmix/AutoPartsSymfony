@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\User\User;
 use App\Enum\PositionStatus;
-use App\Repository\OrderPositionRepository;
+use App\Repository\OrderPosition\OrderPositionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 

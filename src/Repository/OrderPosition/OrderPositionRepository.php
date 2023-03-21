@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\OrderPosition;
 
 use App\Entity\OrderPosition;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

@@ -1,13 +1,20 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\User;
 
-use App\Repository\UserRepository;
+use App\Entity\OrderPosition;
+use App\Entity\Setting\Setting;
+use App\Enum\Gender;
+use App\Enum\UserStatus;
+use App\Repository\User\UserRepository;
+use App\VO\EmailAddress;
+use App\VO\PhoneNumber;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
+use OpenApi\Attributes\Property;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -44,6 +51,35 @@ class User
      */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: OrderPosition::class)]
     private Collection $positions;
+
+    #[ORM\Column(name: 'status', type: Types::STRING, enumType: UserStatus::class)]
+    private UserStatus $status;
+
+    #[ORM\Column(type: Types::BOOLEAN, nullable: false, options: ['default' => false])]
+    private bool $isDeleted;
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[Property(property: 'last_entry_date')]
+    private DateTimeImmutable $lastEntryDate;
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[Property(property: 'created_at')]
+    private DateTimeImmutable $createdAt;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Setting::class)]
+    private Collection $settings;
+
+    #[ORM\Column(type: 'phone', nullable: true)]
+    #[Property]
+    private ?PhoneNumber $phone;
+
+    #[ORM\Column(type: 'email', unique: true, nullable: true)]
+    #[Property]
+    private ?EmailAddress $email;
+
+    #[ORM\Column(type: Types::STRING, nullable: true, enumType: Gender::class)]
+    #[Property]
+    private ?Gender $gender;
 
     /**
      * @param string        $firstName

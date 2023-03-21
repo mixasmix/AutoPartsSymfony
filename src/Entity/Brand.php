@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\BrandRepository;
+use App\Repository\Brand\BrandRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BrandRepository::class)]

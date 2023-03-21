@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\PartRepository;
+use App\Repository\Part\PartRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PartRepository::class)]
