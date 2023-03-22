@@ -82,21 +82,45 @@ class User
     private ?Gender $gender;
 
     /**
-     * @param string        $firstName
-     * @param string        $LastName
-     * @param string | null $middleName
-     * @param array         $positions
+     * @param string                 $firstName
+     * @param string                 $LastName
+     * @param UserStatus             $status
+     * @param PhoneNumber|null       $phone
+     * @param EmailAddress|null      $email
+     * @param Gender|null            $gender
+     * @param string|null            $middleName
+     * @param array                  $positions
+     * @param array                  $settings
+     * @param DateTimeImmutable|null $lastEntryDate
+     * @param DateTimeImmutable|null $createdAt
+     * @param bool                   $isDeleted
      */
     public function __construct(
         string $firstName,
         string $LastName,
+        UserStatus $status,
+        ?PhoneNumber $phone,
+        ?EmailAddress $email,
+        ?Gender $gender,
         ?string $middleName = null,
-        array $positions = []
+        array $positions = [],
+        array $settings = [],
+        ?DateTimeImmutable $lastEntryDate = null,
+        ?DateTimeImmutable $createdAt = null,
+        bool $isDeleted = false,
     ) {
         $this->firstName = $firstName;
         $this->LastName = $LastName;
         $this->middleName = $middleName;
         $this->positions = new ArrayCollection(array_unique($positions, SORT_REGULAR));
+        $this->status = $status;
+        $this->isDeleted = $isDeleted;
+        $this->lastEntryDate = $lastEntryDate ?? new DateTimeImmutable();
+        $this->createdAt = $createdAt ?? new DateTimeImmutable();
+        $this->settings = new ArrayCollection(array_unique($settings, SORT_REGULAR));
+        $this->phone = $phone;
+        $this->email = $email;
+        $this->gender = $gender;
     }
 
     /**
@@ -113,6 +137,70 @@ class User
     public function getFirstName(): string
     {
         return $this->firstName;
+    }
+
+    /**
+     * @return UserStatus
+     */
+    public function getStatus(): UserStatus
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted(): bool
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * @return DateTimeImmutable
+     */
+    public function getLastEntryDate(): DateTimeImmutable
+    {
+        return $this->lastEntryDate;
+    }
+
+    /**
+     * @return DateTimeImmutable
+     */
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getSettings(): Collection
+    {
+        return $this->settings;
+    }
+
+    /**
+     * @return PhoneNumber|null
+     */
+    public function getPhone(): ?PhoneNumber
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @return EmailAddress|null
+     */
+    public function getEmail(): ?EmailAddress
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return Gender|null
+     */
+    public function getGender(): ?Gender
+    {
+        return $this->gender;
     }
 
     /**
