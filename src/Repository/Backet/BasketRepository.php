@@ -2,7 +2,7 @@
 
 namespace App\Repository\Backet;
 
-use App\Entity\Basket;
+use App\Entity\Basket\Basket;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

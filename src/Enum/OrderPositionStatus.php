@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-enum PositionStatus: string
+enum OrderPositionStatus: string
 {
     /**
      * Отказ поставщика
@@ -60,16 +60,16 @@ enum PositionStatus: string
     protected function getValidValues(): array
     {
         return [
-            PositionStatus::DECLINED,
-            PositionStatus::WAIT_PAYMENT,
-            PositionStatus::DECLINED_MANAGER,
-            PositionStatus::DECLINED_USER,
-            PositionStatus::ADD_BASKET,
-            PositionStatus::HANDED_COURIER,
-            PositionStatus::EXCEPTION,
-            PositionStatus::PROCESSING,
-            PositionStatus::TRANSIT,
-            PositionStatus::NEW,
+            OrderPositionStatus::DECLINED,
+            OrderPositionStatus::WAIT_PAYMENT,
+            OrderPositionStatus::DECLINED_MANAGER,
+            OrderPositionStatus::DECLINED_USER,
+            OrderPositionStatus::ADD_BASKET,
+            OrderPositionStatus::HANDED_COURIER,
+            OrderPositionStatus::EXCEPTION,
+            OrderPositionStatus::PROCESSING,
+            OrderPositionStatus::TRANSIT,
+            OrderPositionStatus::NEW,
         ];
     }
 

@@ -2,7 +2,9 @@
 
 namespace App\Entity\User;
 
-use App\Entity\OrderPosition;
+use App\Entity\Basket\Basket;
+use App\Entity\EntityInterface;
+use App\Entity\Position\OrderPosition;
 use App\Entity\Setting\Setting;
 use App\Enum\Gender;
 use App\Enum\UserStatus;
@@ -18,8 +20,10 @@ use OpenApi\Attributes\Property;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User
+class User implements EntityInterface
 {
+    public const ENTITY_NAME = 'Пользователь';
+
     /**
      * @var int
      */
@@ -45,12 +49,6 @@ class User
      */
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $middleName;
-
-    /**
-     * @var Collection<OrderPosition>
-     */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: OrderPosition::class)]
-    private Collection $positions;
 
     #[ORM\Column(name: 'status', type: Types::STRING, enumType: UserStatus::class)]
     private UserStatus $status;
@@ -81,6 +79,9 @@ class User
     #[Property]
     private ?Gender $gender;
 
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: Basket::class)]
+    private ?Basket $basket;
+
     /**
      * @param string                 $firstName
      * @param string                 $LastName
@@ -88,6 +89,7 @@ class User
      * @param PhoneNumber|null       $phone
      * @param EmailAddress|null      $email
      * @param Gender|null            $gender
+     * @param Basket|null            $basket
      * @param string|null            $middleName
      * @param array                  $positions
      * @param array                  $settings
@@ -102,8 +104,8 @@ class User
         ?PhoneNumber $phone,
         ?EmailAddress $email,
         ?Gender $gender,
+        ?Basket $basket = null,
         ?string $middleName = null,
-        array $positions = [],
         array $settings = [],
         ?DateTimeImmutable $lastEntryDate = null,
         ?DateTimeImmutable $createdAt = null,
@@ -112,7 +114,6 @@ class User
         $this->firstName = $firstName;
         $this->LastName = $LastName;
         $this->middleName = $middleName;
-        $this->positions = new ArrayCollection(array_unique($positions, SORT_REGULAR));
         $this->status = $status;
         $this->isDeleted = $isDeleted;
         $this->lastEntryDate = $lastEntryDate ?? new DateTimeImmutable();
@@ -121,6 +122,7 @@ class User
         $this->phone = $phone;
         $this->email = $email;
         $this->gender = $gender;
+        $this->basket = $basket;
     }
 
     /**
@@ -129,6 +131,14 @@ class User
     public function getId(): int
     {
         return $this->id;
+    }
+
+    /**
+     * @return Basket|null
+     */
+    public function getBasket(): ?Basket
+    {
+        return $this->basket;
     }
 
     /**
@@ -225,5 +235,10 @@ class User
     public function getPositions(): Collection
     {
         return $this->positions;
+    }
+
+    public static function getEntityName(): string
+    {
+        return self::ENTITY_NAME;
     }
 }

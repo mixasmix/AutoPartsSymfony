@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Position\OrderPosition;
 use App\Repository\Order\OrderRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
