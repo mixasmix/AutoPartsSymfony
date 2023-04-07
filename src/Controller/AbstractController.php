@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
-abstract class AbstractController
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseController;
+
+abstract class AbstractController extends BaseController
 {
 }
