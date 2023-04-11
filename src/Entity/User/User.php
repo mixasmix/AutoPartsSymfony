@@ -4,7 +4,6 @@ namespace App\Entity\User;
 
 use App\Entity\Basket\Basket;
 use App\Entity\EntityInterface;
-use App\Entity\Position\OrderPosition;
 use App\Entity\Setting\Setting;
 use App\Enum\Gender;
 use App\Enum\UserStatus;
@@ -91,7 +90,6 @@ class User implements EntityInterface
      * @param Gender|null            $gender
      * @param Basket|null            $basket
      * @param string|null            $middleName
-     * @param array                  $positions
      * @param array                  $settings
      * @param DateTimeImmutable|null $lastEntryDate
      * @param DateTimeImmutable|null $createdAt
@@ -227,14 +225,6 @@ class User implements EntityInterface
     public function getMiddleName(): ?string
     {
         return $this->middleName;
-    }
-
-    /**
-     * @return Collection<OrderPosition>
-     */
-    public function getPositions(): Collection
-    {
-        return $this->positions;
     }
 
     public static function getEntityName(): string

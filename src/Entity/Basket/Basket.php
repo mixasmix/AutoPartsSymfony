@@ -20,7 +20,4 @@ class Basket
 
     #[ORM\OneToOne(inversedBy: 'basket', targetEntity: User::class)]
     private User $user;
-
-    #[ORM\OneToMany()]
-    private Collection $orderPosition;
 }

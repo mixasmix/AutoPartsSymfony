@@ -25,6 +25,4 @@ class Order
      */
     #[ORM\OneToMany(mappedBy: 'order', targetEntity: OrderPosition::class)]
     private Collection $orderPositions;
-
-
 }
