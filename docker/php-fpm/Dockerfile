@@ -42,7 +42,6 @@ RUN rm -rf tmp/* /var/cache/apk/*
 
 WORKDIR ${API_SOURCE_PATH}
 ENV COMPOSER_ALLOW_SUPERUSER=1
-#RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 CMD ["php-fpm"]
